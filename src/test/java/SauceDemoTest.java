@@ -6,12 +6,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.time.Duration;
+import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
@@ -26,7 +24,7 @@ public class SauceDemoTest {
         wdm.setup();
         driver = new ChromeDriver();
         wdwait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        //driver.navigate().to("https://www.saucedemo.com/");
+
     }
 
     @BeforeMethod
@@ -62,42 +60,27 @@ public class SauceDemoTest {
         userNameInput.clear();
         wdwait.until(ExpectedConditions.elementToBeClickable(userNameInput));
         userNameInput.click();
-        String userName = driver.findElement(new By.ById("login_credentials")).getText();
-        System.out.println(userName);
-        String[] userNames = userName.split("\n");
-        for (String s : userNames) {
-            if (s.equals("standard_user")){
-             userName = s;
-                break;
-
-           }
-        }
-        userNameInput.sendKeys(userName);
+        String userNames = driver.findElement(new By.ById("login_credentials")).getText();
+        System.out.println(userNames);
+        String[] token = userNames.split("\n");
+        String username = token[1]; //menjamo index za svaki sledeci string, ne treba for
+        userNameInput.sendKeys(username);
         WebElement passwordInput = driver.findElement(new By.ById("password"));
         passwordInput.clear();
         wdwait.until(ExpectedConditions.elementToBeClickable(passwordInput));
         passwordInput.click();
-        String password = driver.findElement(new By.ByClassName("login_password")).getText();
-        System.out.println(password);
-        String[] passwords = password.split("\n");
-        for (String s : passwords) {
-            if (s.equals("secret_sauce")){
-                password = s;
-                break;
-
-            }
-        }
+        String passwords = driver.findElement(new By.ByClassName("login_password")).getText();
+        System.out.println(passwords);
+        String[] Token = passwords.split("\n");
+        String password = Token[1];
         passwordInput.sendKeys(password);
         WebElement loginButton = driver.findElement(new By.ById("login-button"));
         wdwait.until(ExpectedConditions.elementToBeClickable(loginButton));
         loginButton.click();
-        wdwait.until(ExpectedConditions.invisibilityOfAllElements());
+        wdwait.until(ExpectedConditions.presenceOfElementLocated(new By.ByClassName("title")));
         WebElement productTitle = driver.findElement(new By.ByClassName("title"));
-        System.out.println(productTitle+ " " + productTitle.getText()); //da ispise koji text izlazi
+        System.out.println(productTitle+ " " + productTitle.getText());
         assertEquals(productTitle.getText(), "PRODUCTS");
-
-
-
     }
 
     @Test //(enabled = false)
@@ -106,32 +89,20 @@ public class SauceDemoTest {
         userNameInput.clear();
         wdwait.until(ExpectedConditions.elementToBeClickable(userNameInput));
         userNameInput.click();
-        String userName = driver.findElement(new By.ById("login_credentials")).getText();
-        System.out.println(userName);
-        String[] userNames = userName.split("\n");
-        for (String s : userNames) {
-            if (s.equals("problem_user")){
-                userName = s;
-                break;
-
-            }
-        }
-        wdwait.until(ExpectedConditions.elementToBeClickable(userNameInput));
-        userNameInput.sendKeys(userName);
+        String userNames = driver.findElement(new By.ById("login_credentials")).getText();
+        System.out.println(userNames);
+        String[] token = userNames.split("\n");
+        String username = token[3];
+        //wdwait.until(ExpectedConditions.elementToBeClickable(userNameInput));
+        userNameInput.sendKeys(username);
         WebElement passwordInput = driver.findElement(new By.ById("password"));
         passwordInput.clear();
         wdwait.until(ExpectedConditions.elementToBeClickable(passwordInput));
         passwordInput.click();
-        String password = driver.findElement(new By.ByClassName("login_password")).getText();
-        System.out.println(password);
-        String[] passwords = password.split("\n");
-        for (String s : passwords) {
-            if (s.equals("secret_sauce")){
-                password = s;
-                break;
-
-            }
-        }
+        String passwords = driver.findElement(new By.ByClassName("login_password")).getText();
+        System.out.println(passwords);
+        String[] Token = passwords.split("\n");
+        String password = Token[1];
         passwordInput.sendKeys(password);
         WebElement loginButton = driver.findElement(new By.ById("login-button"));
         loginButton.click();
@@ -149,32 +120,20 @@ public class SauceDemoTest {
         userNameInput.clear();
         wdwait.until(ExpectedConditions.elementToBeClickable(userNameInput));
         userNameInput.click();
-        String userName = driver.findElement(new By.ById("login_credentials")).getText();
-        System.out.println(userName);
-        String[] userNames = userName.split("\n");
-        for (String s : userNames) {
-            if (s.equals("performance_glitch_user")){
-                userName = s;
-                break;
-
-            }
-        }
-        wdwait.until(ExpectedConditions.elementToBeClickable(userNameInput));
-        userNameInput.sendKeys(userName);
+        String userNames = driver.findElement(new By.ById("login_credentials")).getText();
+        System.out.println(userNames);
+        String[] token = userNames.split("\n");
+        String username = token[4];
+        //wdwait.until(ExpectedConditions.elementToBeClickable(userNameInput));
+        userNameInput.sendKeys(username);
         WebElement passwordInput = driver.findElement(new By.ById("password"));
         passwordInput.clear();
         wdwait.until(ExpectedConditions.elementToBeClickable(passwordInput));
         passwordInput.click();
-        String password = driver.findElement(new By.ByClassName("login_password")).getText();
-        System.out.println(password);
-        String[] passwords = password.split("\n");
-        for (String s : passwords) {
-            if (s.equals("secret_sauce")){
-                password = s;
-                break;
-
-            }
-        }
+        String passwords = driver.findElement(new By.ByClassName("login_password")).getText();
+        System.out.println(passwords);
+        String[] Token = passwords.split("\n");
+        String password = Token[1];
         passwordInput.sendKeys(password);
         WebElement loginButton = driver.findElement(new By.ById("login-button"));
         loginButton.click();
@@ -189,32 +148,19 @@ public class SauceDemoTest {
         WebElement userNameInput = driver.findElement(new By.ById("user-name"));
         wdwait.until(ExpectedConditions.elementToBeClickable(userNameInput));
         userNameInput.click();
-        String userName = driver.findElement(new By.ById("login_credentials")).getText();
-        System.out.println(userName);
-        String[] userNames = userName.split("\n");
-        for (String s : userNames) {
-            if (s.equals("locked_out_user")){
-                userName = s;
-                break;
-
-            }
-        }
-        wdwait.until(ExpectedConditions.elementToBeClickable(userNameInput));
-        userNameInput.sendKeys(userName);
+        String userNames = driver.findElement(new By.ById("login_credentials")).getText();
+        System.out.println(userNames);
+        String[] token = userNames.split("\n");
+        String username = token[2];
+        userNameInput.sendKeys(username);
         WebElement passwordInput = driver.findElement(new By.ById("password"));
         passwordInput.clear();
         wdwait.until(ExpectedConditions.elementToBeClickable(passwordInput));
         passwordInput.click();
-        String password = driver.findElement(new By.ByClassName("login_password")).getText();
-        System.out.println(password);
-        String[] passwords = password.split("\n");
-        for (String s : passwords) {
-            if (s.equals("secret_sauce")){
-                password = s;
-                break;
-
-            }
-        }
+        String passwords = driver.findElement(new By.ByClassName("login_password")).getText();
+        System.out.println(passwords);
+        String[] Token = passwords.split("\n");
+        String password = Token[1];
         passwordInput.sendKeys(password);
         WebElement loginButton = driver.findElement(new By.ById("login-button"));
         loginButton.click();
@@ -226,15 +172,10 @@ public class SauceDemoTest {
         msgErrorContainer.findElement(new By.ByCssSelector("#login_button_container > div > form > div.error-message-container.error > h3 > button > svg > path")).click();
     }
 
-
-
-
-
         @AfterTest
         public void cleanup () throws InterruptedException {
-           Thread.sleep(5000);
+            Thread.sleep(5000);
            driver.close();
-
 
         }
     }
