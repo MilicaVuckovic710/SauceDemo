@@ -172,6 +172,50 @@ public class SauceDemoTest {
         msgErrorContainer.findElement(new By.ByCssSelector("#login_button_container > div > form > div.error-message-container.error > h3 > button > svg > path")).click();
     }
 
+
+    @Test (enabled = false)
+    public void productSorting() {
+        WebElement userNameInput = driver.findElement(new By.ById("user-name"));
+        userNameInput.clear();
+        wdwait.until(ExpectedConditions.elementToBeClickable(userNameInput));
+        userNameInput.click();
+        String userNames = driver.findElement(new By.ById("login_credentials")).getText();
+        System.out.println(userNames);
+        String[] token = userNames.split("\n");
+        String username = token[4];
+        userNameInput.sendKeys(username);
+        WebElement passwordInput = driver.findElement(new By.ById("password"));
+        passwordInput.clear();
+        wdwait.until(ExpectedConditions.elementToBeClickable(passwordInput));
+        passwordInput.click();
+        String passwords = driver.findElement(new By.ByClassName("login_password")).getText();
+        System.out.println(passwords);
+        String[] Token = passwords.split("\n");
+        String password = Token[1];
+        passwordInput.sendKeys(password);
+        WebElement loginButton = driver.findElement(new By.ById("login-button"));
+        wdwait.until(ExpectedConditions.elementToBeClickable(loginButton));
+        loginButton.click();
+        wdwait.until(ExpectedConditions.invisibilityOfAllElements());
+        WebElement productTitle = driver.findElement(new By.ByClassName("title"));
+        System.out.println(productTitle + " " + productTitle.getText()); //da ispise koji text izlazi
+        assertEquals(productTitle.getText(), "PRODUCTS");
+        //List<WebElement> prices = driver.findElements(new By.ByClassName("inventory_item_price"));
+        //System.out.println(prices.size());
+        String price = driver.findElement(new By.ByClassName("inventory_item_price")).getText();
+        System.out.println(price);
+        String[] prices = price.split("$");
+        /*int max = Integer.parseInt(prices.get(0).getText());
+        for (WebElement we : prices) {
+            System.out.println(we + " " + we.getText());
+            int currentValue = Integer.parseInt(we.getText());
+            if (currentValue > max) {
+                max = currentValue;
+            }
+        }
+        System.out.println(max);*/
+
+    }
         @AfterTest
         public void cleanup () throws InterruptedException {
             Thread.sleep(5000);
